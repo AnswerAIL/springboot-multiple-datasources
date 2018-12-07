@@ -1,6 +1,6 @@
 package com.springboot.mapper;
 
-import com.springboot.datasources.dao.db1.User1Mapper;
+import com.springboot.datasources.dao.db2.User2Mapper;
 import com.springboot.datasources.entity.UserEntity;
 import com.springboot.datasources.entity.UserSexEnum;
 import org.junit.Assert;
@@ -13,14 +13,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 /**
- * Created by L.Answer on 2018-12-07 14:11
+ * Created by L.Answer on 2018-12-07 15:03
  */
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DB1MapperTest {
+public class DB2MapperTest {
+
     @Autowired
-    private User1Mapper userMapper;
+    private User2Mapper userMapper;
 
     @Test
     public void testInsert() throws Exception {
@@ -46,10 +46,11 @@ public class DB1MapperTest {
     public void testUpdate() throws Exception {
         UserEntity user = userMapper.getOne(3L);
         if (user != null) {
-            System.out.println(user.toString());
+            System.out.println("id: " + user.getId());
             user.setNickName("answer");
             userMapper.update(user);
             Assert.assertTrue(("answer".equals(userMapper.getOne(3L).getNickName())));
         }
     }
+
 }
