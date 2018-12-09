@@ -7,24 +7,29 @@ import java.util.Map;
 
 /**
  * Created by L.Answer on 2018-12-07 15:22
+ * 增: insert*
+ * 删: delete*
+ * 改: update*
+ * 查: find*
  */
 public interface CommonMapper<K> {
 
     /**
      * 根据主键查询记录
-     * @param key
+     * @param key 主键
+     * @param pageInfo 分页信息
      * @return T
      * */
-    <T> T findByPrimaryKey(K key);
+    <T> T findByPrimaryKey(K key, Map<String, Object> pageInfo);
     /**
      * 根据字段查询记录
-     * @param params
+     * @param params 具体字段集合
      * @return List<T>
      * */
     <T> List<T> findRecordsBySelectKeys(Map<String, Object> params);
     /**
      * 根据字段查询总数
-     * @param params
+     * @param params 具体字段集合
      * @return int
      * */
     int countRecordsBySelectKeys(Map<String, Object> params);
@@ -33,50 +38,50 @@ public interface CommonMapper<K> {
 
     /**
      * 根据字段更新记录
-     * @param params
+     * @param params 具体字段集合
      * @return int
      * */
     int updateBySelectKeys(Map<String, Object> params);
     /**
      * 根据对象更新记录
-     * @param record
+     * @param entity 实体对象
      * @return int
      * */
-    <T> int updateByRecord(T record);
+    <T> int updateByRecord(T entity);
     /**
      * 根据对象更新记录集
-     * @param records
+     * @param entities 实体对象集合
      * @return int
      * */
-    <T> int updateByRecords(@Param("records") List<T> records);
+    <T> int updateByRecords(@Param("entities") List<T> entities);
 
 
 
     /**
      * 新增单条记录
-     * @param record
+     * @param entity 实体对象
      * @return int
      * */
-    <T> int insertSingleRecord(T record);
+    <T> int insertSingleRecord(T entity);
     /**
      * 批量新增记录集
-     * @param records
+     * @param entities 实体对象集合
      * @return int
      * */
-    <T> int insertBatchRecords(@Param("records") List<T> records);
+    <T> int insertBatchRecords(@Param("entities") List<T> entities);
 
 
     /**
      * 更新主键删除记录
-     * @param key
+     * @param key 主键
      * @return int
      * */
     int deleteByPrimaryKey(K key);
     /**
      * 根据对象删除记录
-     * @param record
+     * @param entity 实体对象
      * @return int
      * */
-    <T> int deleteByRecord(T record);
+    <T> int deleteByRecord(T entity);
 
 }
