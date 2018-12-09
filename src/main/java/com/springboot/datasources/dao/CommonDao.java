@@ -12,7 +12,7 @@ import java.util.Map;
  * 改: update*
  * 查: find*
  */
-public interface CommonMapper<K> {
+public interface CommonDao<K> {
 
     /**
      * 根据主键查询记录

@@ -1,16 +1,8 @@
 package com.springboot.mapper;
 
-import com.springboot.datasources.dao.db2.User2Mapper;
-import com.springboot.datasources.entity.UserEntity;
-import com.springboot.datasources.entity.UserSexEnum;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 /**
  * Created by L.Answer on 2018-12-07 15:03

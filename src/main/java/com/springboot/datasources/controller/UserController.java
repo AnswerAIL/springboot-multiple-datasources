@@ -1,7 +1,7 @@
 package com.springboot.datasources.controller;
 
-import com.springboot.datasources.dao.db1.User1Mapper;
-import com.springboot.datasources.dao.db2.User2Mapper;
+import com.springboot.datasources.dao.db1.User1Dao;
+import com.springboot.datasources.dao.db2.User2Dao;
 import com.springboot.datasources.entity.UserEntity;
 import com.springboot.datasources.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private User1Mapper user1Mapper;
+    private User1Dao user1Mapper;
 
     @Autowired
-    private User2Mapper user2Mapper;
+    private User2Dao user2Mapper;
 
     @RequestMapping("/getUsers")
     public List<UserEntity> getUsers() {
