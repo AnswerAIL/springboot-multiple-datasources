@@ -19,6 +19,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DB1MapperTest {
+    /**
     @Autowired
     private User1Mapper userMapper;
 
@@ -52,4 +53,5 @@ public class DB1MapperTest {
             Assert.assertTrue(("answer".equals(userMapper.getOne(3L).getNickName())));
         }
     }
+    */
 }

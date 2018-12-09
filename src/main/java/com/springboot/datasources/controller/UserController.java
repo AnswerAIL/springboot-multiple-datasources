@@ -3,12 +3,15 @@ package com.springboot.datasources.controller;
 import com.springboot.datasources.dao.db1.User1Mapper;
 import com.springboot.datasources.dao.db2.User2Mapper;
 import com.springboot.datasources.entity.UserEntity;
+import com.springboot.datasources.utils.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by L.Answer on 2018-12-07 11:07
@@ -24,7 +27,10 @@ public class UserController {
 
     @RequestMapping("/getUsers")
     public List<UserEntity> getUsers() {
-        List<UserEntity> users=user1Mapper.getAll();
+        Map<String, Object> params = new HashMap<>();
+        PageInfo pageInfo = new PageInfo(1, 1);
+        params.put("pageInfo", pageInfo);
+        List<UserEntity> users=user1Mapper.getAll(params);
         return users;
     }
 

@@ -1,15 +1,17 @@
 package com.springboot.datasources.dao.db2;
 
+import com.springboot.datasources.dao.CommonMapper;
 import com.springboot.datasources.entity.UserEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by L.Answer on 2018-12-07 10:09
  */
-public interface User2Mapper {
+public interface User2Mapper extends CommonMapper<UserEntity> {
 
-    List<UserEntity> getAll();
+    List<UserEntity> getAll(Map<String, Object> params);
 
     UserEntity getOne(Long id);
 
