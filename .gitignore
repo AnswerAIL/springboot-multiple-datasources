@@ -4,6 +4,7 @@ target/*
 mvnw.cmd
 mvnw
 .mvn/*
+logs/*
 
 /target/
 !.mvn/wrapper/maven-wrapper.jar

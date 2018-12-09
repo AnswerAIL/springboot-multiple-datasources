@@ -4,6 +4,8 @@ import com.springboot.datasources.dao.db1.User1Dao;
 import com.springboot.datasources.dao.db2.User2Dao;
 import com.springboot.datasources.entity.UserEntity;
 import com.springboot.datasources.utils.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import java.util.Map;
  */
 @RestController
 public class UserController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private User1Dao user1Dao;
@@ -27,6 +30,7 @@ public class UserController {
 
     @RequestMapping("/getUsers")
     public List<UserEntity> getUsers() {
+        LOGGER.info("getUsers...");
         Map<String, Object> params = new HashMap<>();
         PageInfo pageInfo = new PageInfo(1, 1);
         params.put("pageInfo", pageInfo);
