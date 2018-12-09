@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by L.Answer on 2018-12-07 10:09
  */
-public interface User1Dao extends CommonDao<UserEntity> {
+public interface User1Dao extends CommonDao<Long> {
 
     List<UserEntity> getAll(Map<String, Object> params);
 

@@ -17,10 +17,9 @@ public interface CommonDao<K> {
     /**
      * 根据主键查询记录
      * @param key 主键
-     * @param pageInfo 分页信息
      * @return T
      * */
-    <T> T findByPrimaryKey(K key, Map<String, Object> pageInfo);
+    <T> T findByPrimaryKey(K key);
     /**
      * 根据字段查询记录
      * @param params 具体字段集合
