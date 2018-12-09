@@ -6,7 +6,9 @@ package com.springboot.datasources.utils;
  * MyBatis 分页插件实体类
  */
 public class PageInfo {
+    /** 当前页码 */
     private int currentPage;
+    /** 每页显示记录数 */
     private int pageSize;
 
     public PageInfo(int currentPage, int pageSize) {
