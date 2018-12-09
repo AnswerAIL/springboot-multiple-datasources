@@ -20,39 +20,39 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private User1Dao user1Mapper;
+    private User1Dao user1Dao;
 
     @Autowired
-    private User2Dao user2Mapper;
+    private User2Dao user2Dao;
 
     @RequestMapping("/getUsers")
     public List<UserEntity> getUsers() {
         Map<String, Object> params = new HashMap<>();
         PageInfo pageInfo = new PageInfo(1, 1);
         params.put("pageInfo", pageInfo);
-        List<UserEntity> users=user1Mapper.getAll(params);
+        List<UserEntity> users=user1Dao.getAll(params);
         return users;
     }
 
     @RequestMapping("/getUser")
     public UserEntity getUser(Long id) {
-        UserEntity user=user2Mapper.getOne(id);
+        UserEntity user=user2Dao.getOne(id);
         return user;
     }
 
     @RequestMapping("/add")
     public void save(UserEntity user) {
-        user2Mapper.insert(user);
+        user2Dao.insert(user);
     }
 
     @RequestMapping(value="update")
     public void update(UserEntity user) {
-        user2Mapper.update(user);
+        user2Dao.update(user);
     }
 
     @RequestMapping(value="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
-        user1Mapper.delete(id);
+        user1Dao.delete(id);
     }
 
 }
