@@ -13,43 +13,32 @@
         id, user_name, password, user_sex, nick_name
     </sql>
 
-    <select id="getAll" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
+    <select id="findRecordsBySelectKeys" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
         FROM users
     </select>
 
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
+    <select id="findByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
         FROM users
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="UserEntity">
-        INSERT INTO
-        users
-        (user_name,password,user_sex)
-        VALUES
-        (#{userName}, #{password}, #{userSex})
+    <insert id="insertSingleRecord" parameterType="UserEntity">
+        INSERT INTO users (user_name,password,user_sex)
+        VALUES (#{userName}, #{password}, #{userSex})
     </insert>
 
-    <update id="update" parameterType="UserEntity">
-        UPDATE
-        users
-        SET
-        <if test="userName != null">user_name = #{userName},</if>
-        <if test="password != null">password = #{password},</if>
-        nick_name = #{nickName}
-        WHERE
-        id = #{id}
+    <update id="updateByRecord" parameterType="UserEntity">
+        UPDATE users
+        SET <if test="userName != null">user_name = #{userName},</if>
+            <if test="password != null">password = #{password},</if>
+            nick_name = #{nickName}
+        WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="Long">
-        DELETE FROM
-        users
-        WHERE
-        id =#{id}
+    <delete id="deleteByPrimaryKey" parameterType="Long">
+        DELETE FROM users WHERE id =#{id}
     </delete>
 
 </mapper>

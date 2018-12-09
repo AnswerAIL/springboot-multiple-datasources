@@ -8,6 +8,8 @@ import org.apache.ibatis.mapping.SqlCommandType;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.PropertyException;
 import java.sql.Connection;
@@ -45,6 +47,8 @@ import java.util.Properties;
  */
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class}) })
 public class PagePlugin implements Interceptor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PagePlugin.class);
+
     // 数据库方言
     private static String dialect = "mysql";
     // 拦截以 Page 结尾的所有方法
@@ -83,12 +87,12 @@ public class PagePlugin implements Interceptor {
                 int offset = (currentPage - 1) * pageSize;
                 // 重写SQL, 加入分页逻辑
                 sql = sql.trim() + " LIMIT " + offset + "," + pageSize;
-                System.out.println("SQL Command Type【" + sqlCmdType +"】, method【" + methodName + "】 need paing.");
+                LOGGER.info("SQL Command Type【{}】, method【{}】 need paing.", sqlCmdType, methodName);
                 // 将重写完的分页SQL语句覆盖掉原有的SQL语句
                 metaObject.setValue("delegate.boundSql.sql", sql);
             }
         }
-        System.out.println("mybatis intercept sqlID: " + methodName + ", sql: " + sql);
+        LOGGER.info("mybatis intercept sqlID: {}, sql: {}.", methodName, sql);
         return invocation.proceed();
     }
 
@@ -116,7 +120,7 @@ public class PagePlugin implements Interceptor {
         pageParam = properties.getProperty("pageParam");
         checkParam("pageParam", pageParam);
 
-        System.out.println("mybatis intercept dialect: " + dialect + ", pageSqlId: " + pageSqlId + ", pageParam: " + pageParam);
+        LOGGER.info("mybatis intercept dialect: {}, pageSqlId: {}, pageParam: {}.", dialect, pageSqlId, pageParam);
     }
 
 

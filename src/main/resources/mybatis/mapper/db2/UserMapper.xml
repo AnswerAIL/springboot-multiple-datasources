@@ -1,55 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.springboot.datasources.dao.db2.User2Dao" >
-    <resultMap id="BaseResultMap" type="UserEntity" >
-        <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="user_name" property="userName" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
+    <resultMap id="BaseResultMap" type="UserEntity">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="user_sex" property="userSex" javaType="UserSexEnum"/>
-        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
         id, user_name, password, user_sex, nick_name
     </sql>
 
-    <select id="getAll" resultMap="BaseResultMap"  >
-        SELECT
-        <include refid="Base_Column_List" />
+    <select id="findRecordsBySelectKeys" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
         FROM users
     </select>
 
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
-        SELECT
-        <include refid="Base_Column_List" />
+    <select id="findByPrimaryKey" parameterType="Long" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
         FROM users
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="UserEntity" >
-        INSERT INTO
-        users
-        (user_name,password,user_sex)
-        VALUES
-        (#{userName}, #{password}, #{userSex})
+    <insert id="insertSingleRecord" parameterType="UserEntity">
+        INSERT INTO users (user_name,password,user_sex)
+        VALUES (#{userName}, #{password}, #{userSex})
     </insert>
 
-    <update id="update" parameterType="UserEntity" >
-        UPDATE
-        users
-        SET
-        <if test="userName != null">user_name = #{userName},</if>
+    <update id="updateByRecord" parameterType="UserEntity">
+        UPDATE users
+        SET <if test="userName != null">user_name = #{userName},</if>
         <if test="password != null">password = #{password},</if>
         nick_name = #{nickName}
-        WHERE
-        id = #{id}
+        WHERE id = #{id}
     </update>
 
-    <delete id="delete" parameterType="Long" >
-        DELETE FROM
-        users
-        WHERE
-        id =#{id}
+    <delete id="deleteByPrimaryKey" parameterType="Long">
+        DELETE FROM users WHERE id =#{id}
     </delete>
 
 </mapper>

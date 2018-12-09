@@ -22,7 +22,7 @@
             <!-- 拦截以 Page 结尾的所有方法 -->
             <!--<property name="pageSqlId" value=".*(Page)$" />-->
             <!-- 拦截以 find 开头的所有方法 -->
-            <property name="pageSqlId" value="^get.*" />
+            <property name="pageSqlId" value="^find.*" />
             <!-- 分页对象信息对应的key值 -->
             <property name="pageParam" value="pageInfo" />
         </plugin>

@@ -1,8 +1,8 @@
 package com.springboot.datasources.controller;
 
-import com.springboot.datasources.dao.db1.User1Dao;
-import com.springboot.datasources.dao.db2.User2Dao;
+import com.springboot.datasources.entity.DBEnum;
 import com.springboot.datasources.entity.UserEntity;
+import com.springboot.datasources.service.UserService;
 import com.springboot.datasources.utils.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +23,9 @@ public class UserController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private User1Dao user1Dao;
+    private UserService userService;
 
-    @Autowired
-    private User2Dao user2Dao;
+
 
     @RequestMapping("/getUsers")
     public List<UserEntity> getUsers() {
@@ -34,29 +33,35 @@ public class UserController {
         Map<String, Object> params = new HashMap<>();
         PageInfo pageInfo = new PageInfo(1, 1);
         params.put("pageInfo", pageInfo);
-        List<UserEntity> users=user1Dao.getAll(params);
-        return users;
+        return userService.findUserList(DBEnum.DB1, params);
     }
+
 
     @RequestMapping("/getUser")
     public UserEntity getUser(Long id) {
-        UserEntity user=user2Dao.getOne(id);
-        return user;
+        return userService.findUserById(DBEnum.DB2, id);
     }
+
 
     @RequestMapping("/add")
     public void save(UserEntity user) {
-        user2Dao.insert(user);
+        int count = userService.insertUser(DBEnum.DB2, user);
+        LOGGER.info("insert count: {}.", count);
     }
+
 
     @RequestMapping(value="update")
     public void update(UserEntity user) {
-        user2Dao.update(user);
+        int count = userService.updateUser(DBEnum.DB2, user);
+        LOGGER.info("update count: {}.", count);
     }
+
 
     @RequestMapping(value="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
-        user1Dao.delete(id);
+        int count = userService.deleteUserById(DBEnum.DB1, id);
+        LOGGER.info("delete count: {}.", count);
     }
+
 
 }
