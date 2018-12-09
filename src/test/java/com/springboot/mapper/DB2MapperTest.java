@@ -1,8 +1,17 @@
 package com.springboot.mapper;
 
+import com.springboot.datasources.entity.DBEnum;
+import com.springboot.datasources.entity.UserEntity;
+import com.springboot.datasources.entity.UserSexEnum;
+import com.springboot.datasources.service.UserService;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 /**
  * Created by L.Answer on 2018-12-07 15:03
@@ -10,26 +19,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DB2MapperTest {
-/**
-
     @Autowired
-    private User2Mapper userMapper;
+    private UserService userService;
 
     @Test
     public void testInsert() throws Exception {
-        userMapper.insert(new UserEntity("jim", "a123456", UserSexEnum.MAN));
-        userMapper.insert(new UserEntity("jane", "b123456", UserSexEnum.WOMAN));
-        userMapper.insert(new UserEntity("james", "b123456", UserSexEnum.WOMAN));
+        userService.insertUser(DBEnum.DB2, new UserEntity("jim", "a123456", UserSexEnum.MAN));
+        userService.insertUser(DBEnum.DB2, new UserEntity("jane", "b123456", UserSexEnum.WOMAN));
+        userService.insertUser(DBEnum.DB2, new UserEntity("james", "b123456", UserSexEnum.WOMAN));
 
-        Assert.assertEquals(3, userMapper.getAll().size());
+        Assert.assertEquals(3, userService.findUserList(DBEnum.DB2, null));
     }
 
     @Test
     public void testQuery() throws Exception {
-        List<UserEntity> users = userMapper.getAll();
-        if(users==null || users.size()==0){
+        List<UserEntity> users = userService.findUserList(DBEnum.DB2, null);
+        if (users == null || users.size() == 0) {
             System.out.println("is null");
-        }else{
+        } else {
             System.out.println(users.size());
         }
     }
@@ -37,14 +44,13 @@ public class DB2MapperTest {
 
     @Test
     public void testUpdate() throws Exception {
-        UserEntity user = userMapper.getOne(3L);
+        UserEntity user = userService.findUserById(DBEnum.DB2, 3L);
         if (user != null) {
             System.out.println("id: " + user.getId());
             user.setNickName("answer");
-            userMapper.update(user);
-            Assert.assertTrue(("answer".equals(userMapper.getOne(3L).getNickName())));
+            userService.updateUser(DBEnum.DB2, user);
+            Assert.assertTrue(("answer".equals(userService.findUserById(DBEnum.DB2, 3L).getNickName())));
         }
     }
-*/
 
 }

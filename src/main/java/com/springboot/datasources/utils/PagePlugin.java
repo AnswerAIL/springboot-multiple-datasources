@@ -76,7 +76,7 @@ public class PagePlugin implements Interceptor {
             // 获取方法的参数信息
             Map paramsMap = (Map) statementHandler.getParameterHandler().getParameterObject();
             // 如果参数中包含分页对象信息, 则进行重写SQL
-            if (paramsMap.containsKey(pageParam)) {
+            if (paramsMap != null && paramsMap.containsKey(pageParam)) {
                 // 分页信息实体类
                 PageInfo pageInfo = (PageInfo) paramsMap.get(pageParam);
                 // 当前页码
@@ -87,12 +87,12 @@ public class PagePlugin implements Interceptor {
                 int offset = (currentPage - 1) * pageSize;
                 // 重写SQL, 加入分页逻辑
                 sql = sql.trim() + " LIMIT " + offset + "," + pageSize;
-                LOGGER.info("SQL Command Type【{}】, method【{}】 need paing.", sqlCmdType, methodName);
+                LOGGER.debug("SQL Command Type【{}】, method【{}】 need paing.", sqlCmdType, methodName);
                 // 将重写完的分页SQL语句覆盖掉原有的SQL语句
                 metaObject.setValue("delegate.boundSql.sql", sql);
             }
         }
-        LOGGER.info("mybatis intercept sqlID: {}, sql: {}.", methodName, sql);
+        LOGGER.debug("mybatis intercept sqlID: {}, sql: {}.", methodName, sql);
         return invocation.proceed();
     }
 
@@ -120,7 +120,7 @@ public class PagePlugin implements Interceptor {
         pageParam = properties.getProperty("pageParam");
         checkParam("pageParam", pageParam);
 
-        LOGGER.info("mybatis intercept dialect: {}, pageSqlId: {}, pageParam: {}.", dialect, pageSqlId, pageParam);
+        LOGGER.debug("mybatis intercept dialect: {}, pageSqlId: {}, pageParam: {}.", dialect, pageSqlId, pageParam);
     }
 
 
