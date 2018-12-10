@@ -1,9 +1,9 @@
 # Refer: https://www.cnblogs.com/vitasyuan/p/8783838.html
 Configuration:
-  status: warn
+  status: warn              # log4j2内部的日志会将日志级别大于WARN的日志打印到Console
 
   Properties: # 定义全局变量
-    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定, 如下：
       #测试：-Dlog.level.console=warn -Dlog.level.msd=trace
       #生产：-Dlog.level.console=warn -Dlog.level.msd=info
       - name: log.level.console
@@ -16,17 +16,17 @@ Configuration:
         value: multiple-data-sources
 
   Appenders:
-    Console:  # 输出到控制台
+    Console:              # 输出到控制台
       name: CONSOLE
       target: SYSTEM_OUT
       ThresholdFilter:
-        level: ${sys:log.level.console} # “sys:”表示：如果VM参数中没指定这个变量值，则使用本文件中定义的缺省全局变量值
+        level: ${sys:log.level.console} # “sys:”表示：如果VM参数中没指定这个变量值, 则使用本文件中定义的缺省全局变量值
         onMatch: ACCEPT
         onMismatch: DENY
       PatternLayout:
         pattern: "[MDS] %p %d{yyyy-MM-dd HH:mm:ss,SSS} %C.%M(%L) %m%n"
 
-    RollingFile: # 输出到文件，超过128MB归档
+    RollingFile: # 输出到文件, 超过128MB归档
       - name: ROLLING_FILE
         ignoreExceptions: false
         fileName: ${log.path}/${project.name}.log
@@ -136,3 +136,31 @@ Configuration:
         level: trace
         AppenderRef:
           - ref: EXCEPTION
+
+
+
+
+# %t：线程名称
+# %p：日志级别
+# %c：日志消息所在类名
+# %m：消息内容
+# %M：输出执行方法
+# %d：发生时间, %d{yyyy-MM-dd HH:mm:ss,SSS}, 输出类似：2018-12-10 10:22:44,888
+# %x: 输出和当前线程相关联的NDC(嵌套诊断环境),尤其用到像java servlets这样的多客户多线程的应用中
+# %L：代码中的行数
+# %l：输出错误的完整位置
+# %n：换行
+
+
+# & —— &amp; 或者 &#38;
+# < —— &lt;  或者 &#60;
+# > —— &gt;  或者 &#62;
+# “ —— &quot; 或者 &#34;
+# ‘ —— &apos; 或者 &#39;
+
+
+# %20 —— 右对齐, 不足20个字符则在信息前面用空格补足, 超过20个字符则保留原信息
+# %-20 —— 左对齐, 不足20个字符则在信息后面用空格补足, 超过20个字符则保留原信息
+# %.30 —— 如果信息超过30个字符, 则只保留最后30个字符
+# %20.30 —— 右对齐, 不足20个字符则在信息前面用空格补足, 超过30个字符则只保留最后30个字符
+# %-20.30 —— 左对齐, 不足20个字符则在信息后面用空格补足, 超过30个字符则只保留最后30个字符
